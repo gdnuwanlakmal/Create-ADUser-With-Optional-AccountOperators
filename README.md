@@ -35,7 +35,7 @@ and optionally add them to the **Account Operators** group for helpdesk use.
 
 ```powershell
 .\Create-ADUser-With-Optional-AccountOperators.ps1
-
+```
 ```shell
 <#
 .SYNOPSIS
@@ -153,4 +153,20 @@ if ($AddToAO -match '^(YES|Y)$') {
 
 Write-Host ""
 Write-Host "Script completed successfully." -ForegroundColor Green
+```
+✅ SAFE & SUPPORTED DESIGN
+
+- Uses built-in AD cmdlets
+- Uses Microsoft-supported Account Operators
+- Avoids fragile delegation
+- Works in legacy & hardened domains
+- Easy to audit and maintain
+
+### 📌 RECOMMENDED (ONE-TIME SAFETY)
+
+To prevent accidental deletion (especially with Account Operators):
+```shell
+Get-ADUser -Filter * | ForEach-Object {
+    Set-ADObject $_.DistinguishedName -ProtectedFromAccidentalDeletion $true
+}
 ```
